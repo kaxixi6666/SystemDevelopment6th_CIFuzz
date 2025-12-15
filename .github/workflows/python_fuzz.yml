@@ -26,6 +26,7 @@ jobs:
       # - Sets PYTHONPATH so the script can import modules from the current directory.
       # - Creates 'corpus_calc' to store interesting inputs found by the fuzzer.
       # - Runs 'fuzz_calculator.py' with a 120-second time limit (-max_total_time=120).
+
       - name: Fuzzing (Generate Corpus)
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
@@ -40,6 +41,7 @@ jobs:
       # - Runs 'repro_coverage.py' using the 'coverage' tool.
       #   This script replays all inputs from 'corpus_calc' (valid inputs) and 'crashes' (failing inputs)
       #   to accurately measure which lines of code were executed during fuzzing.
+
       - name: Coverage Collection
         run: |
           mkdir -p crashes
@@ -54,11 +56,13 @@ jobs:
 
       # 3. Report Generation
       # Converts the collected coverage data into a human-readable HTML report.
+
       - name: Generate Report
         run: coverage html -d coverage-report
 
       # 4. Bundle Artifacts
       # Organizes all results (report, corpus, crashes) into a single folder for easy download.
+
       - name: Bundle Artifacts
         run: |
           mkdir -p fuzzing_results
